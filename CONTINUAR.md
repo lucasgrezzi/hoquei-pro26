@@ -3,6 +3,10 @@
 > Para retomar: abra o Claude Code na pasta `Desktop/hoquei` e diga
 > **"leia o CONTINUAR.md e vamos melhorar os gráficos"**.
 
+## Repositório
+- Git próprio nesta pasta, branch `main`, remoto `origin` = https://github.com/lucasgrezzi/hoquei-pro26 (criado em 26/10).
+- Ao fim de cada rodada de trabalho: `git add -A && git commit` e `git push` (só quando o usuário pedir para salvar/subir).
+
 ## Como rodar
 - Dois cliques em `index.html`. Funciona offline, sem instalar nada (Three.js r149 local em `lib/`).
 - Scripts clássicos, sem build. As variáveis globais são compartilhadas entre os arquivos, na ordem do `index.html`.
