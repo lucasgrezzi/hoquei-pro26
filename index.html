@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hóquei Pro 26</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app"></div>
+
+<div id="hud" class="hidden">
+  <div id="scorebug">
+    <div class="sb-row">
+      <div class="sb-team" id="sbT0"><i class="sb-sw"></i><b class="sb-abbr"></b><span class="sb-score">0</span></div>
+      <div class="sb-team" id="sbT1"><i class="sb-sw"></i><b class="sb-abbr"></b><span class="sb-score">0</span></div>
+      <div class="sb-per" id="sbPer">1º</div>
+      <div class="sb-clock" id="sbClock">00:00</div>
+    </div>
+    <div class="sb-sub" id="sbSub"></div>
+  </div>
+  <div id="banner" class="hidden"><div class="b-main"></div><div class="b-sub"></div></div>
+  <div id="toasts"></div>
+  <div id="cards"></div>
+  <canvas id="minimap" width="244" height="104"></canvas>
+  <div id="help">Esc pausa · C câmera · M som</div>
+</div>
+
+<div id="menu" class="screen">
+  <div class="menu-inner">
+    <div class="logo"><span>HÓQUEI</span><b>PRO</b><em>26</em></div>
+    <div class="subtitle">Jogo rápido</div>
+    <div id="teams"></div>
+    <div id="opts"></div>
+    <div id="diffNote" class="muted small">A dificuldade vale para o time da CPU.</div>
+    <div class="btns">
+      <button id="btnPlay" class="primary big">JOGAR</button>
+      <button id="btnPro" class="big">CARREIRA JOGADOR</button>
+      <button id="btnCareer" class="big">CARREIRA CLUBE</button>
+      <button id="btnControls">Controles</button>
+    </div>
+    <div class="muted small foot">Enter ou botão A do controle para começar · funciona offline em qualquer navegador moderno</div>
+  </div>
+</div>
+
+<div id="career" class="screen hidden"></div>
+<div id="pro" class="screen hidden"></div>
+
+<div id="pause" class="screen hidden">
+  <div class="panel">
+    <h2>PAUSA</h2>
+    <div class="btns col">
+      <button id="pauseResume" class="primary">Continuar</button>
+      <button id="pauseCam">Câmera</button>
+      <button id="pauseSound">Som: ligado</button>
+      <button id="pauseControls">Controles</button>
+      <button id="pauseQuit">Sair para o menu</button>
+    </div>
+  </div>
+</div>
+
+<div id="report" class="screen hidden">
+  <div class="panel wide">
+    <h2></h2>
+    <div class="score"></div>
+    <div class="body"></div>
+    <div class="btns"></div>
+  </div>
+</div>
+
+<div id="controls" class="screen hidden">
+  <div class="panel wide">
+    <h2>CONTROLES</h2>
+    <table class="ctl">
+      <tr><th>Ação</th><th>Teclado (P1)</th><th>Teclado (P2)</th><th>Controle</th></tr>
+      <tr><td>Patinar</td><td>W A S D (ou setas no modo 1 jogador)</td><td>Setas</td><td>Analógico esquerdo</td></tr>
+      <tr><td>Sprint</td><td>Shift esquerdo</td><td>Shift direito / Num 0</td><td>LT / LB</td></tr>
+      <tr><td><b>Com o disco</b></td><td></td><td></td><td></td></tr>
+      <tr><td>Passe (segure = mais forte)</td><td>J ou Espaço</td><td>Num 1 / vírgula</td><td>A</td></tr>
+      <tr><td>Chute: toque = pulso · segure = slapshot</td><td>K</td><td>Num 2 / ponto</td><td>X ou RT</td></tr>
+      <tr><td>Mirar canto do gol</td><td>Segure W ou S ao soltar o chute</td><td>↑ ou ↓</td><td>Analógico ↑/↓</td></tr>
+      <tr><td>Drible (deke)</td><td>L</td><td>Num 3 / barra</td><td>B ou RB</td></tr>
+      <tr><td><b>Sem o disco</b></td><td></td><td></td><td></td></tr>
+      <tr><td>Trocar de jogador (na carreira de jogador: pedir o passe)</td><td>J ou Espaço</td><td>Num 1 / vírgula</td><td>A</td></tr>
+      <tr><td>Body check (pancada)</td><td>K</td><td>Num 2 / ponto</td><td>X ou RT</td></tr>
+      <tr><td>Poke check (roubar com o taco)</td><td>L</td><td>Num 3 / barra</td><td>B ou RB</td></tr>
+      <tr><td>One-timer</td><td colspan="3">Segure o chute enquanto o passe chega até você</td></tr>
+      <tr><td>Faceoff</td><td colspan="3">Aperte passe ou chute no instante em que o disco cai</td></tr>
+      <tr><td>Shootout (empate na prorrogação)</td><td colspan="3">Avance para o gol (cima), drible com L / B, chute com K / X; segure esquerda ou direita ao soltar o chute para mirar o canto</td></tr>
+    </table>
+    <p class="muted small">No modo 2 jogadores, P1 usa WASD + J/K/L e P2 usa setas + teclado numérico (ou cada um com seu controle).</p>
+    <div class="btns"><button id="btnCloseControls" class="primary">Fechar</button></div>
+  </div>
+</div>
+
+<script src="lib/three.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/rink.js"></script>
+<script src="js/fx.js"></script>
+<script src="js/models.js"></script>
+<script src="js/entities.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/input.js"></script>
+<script src="js/game.js"></script>
+<script src="js/shootout.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/career.js"></script>
+<script src="js/procareer.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
